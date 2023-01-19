@@ -3,6 +3,7 @@ import "./App.css";
 import { Task } from "./components/Task";
 import { TaskFormModal } from "./components/TaskFormModal";
 import { data } from "./data/tasks";
+import { Header } from "./components/Header";
 
 const App = () => {
   const title = "To do list";
@@ -28,9 +29,7 @@ const App = () => {
 
   return (
     <div className="main">
-      <div className="header">
-        <h1>Replace me using the title const</h1>
-      </div>
+      <Header title={"To do list"} />
       <Task />
       <button
         className="add-task-btn"

@@ -1,7 +1,12 @@
 import React from "react";
 import "./Task.css";
 
-type TaskProps = {};
+type TaskProps = {
+  id: number;
+  title: string;
+  description: string;
+  done: boolean;
+};
 
 export const Task = ({}: TaskProps) => {
   return (
