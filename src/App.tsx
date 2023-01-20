@@ -5,6 +5,7 @@ import { TaskFormModal } from "./components/TaskFormModal";
 import { data } from "./data/tasks";
 import { Header } from "./components/Header";
 
+
 const App = () => {
   const title = "To do list";
   const tasks = data;
@@ -29,8 +30,10 @@ const App = () => {
 
   return (
     <div className="main">
-      <Header title={"To do list"} />
-      <Task />
+      <Header title={title} />
+      {tasks.map(((obj) =>
+        <Task task={obj}/>
+      ))}
       <button
         className="add-task-btn"
         onClick={() => console.log("this button should open the modal")}
