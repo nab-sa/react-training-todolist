@@ -1,7 +1,7 @@
 import React from "react";
 import { TaskType } from "../models/Task"
 import "./Task.css";
-import { data } from "../data/tasks"
+
 
 type TaskProps = {
   task: TaskType;
@@ -9,7 +9,6 @@ type TaskProps = {
 
 
 export const Task = ({task}: TaskProps) => {
-
 
   return (
     <div className="task-container">
