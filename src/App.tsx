@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { Task } from "./components/Task";
 import { TaskFormModal } from "./components/TaskFormModal";
@@ -9,8 +9,10 @@ import { TasksList } from "./components/TasksList"
 
 const App = () => {
   const title = "To do list";
-  const tasks = data;
+  // const tasks = data;
   const taskToEdit: any = null;
+  const [showModal, setShowModal] = useState(false)
+  const [tasks, setTasks] = useState(data);
 
   const updateTaskState = (taskId: number) => {
     console.error("I need to be implemented");
@@ -18,7 +20,8 @@ const App = () => {
 
   const addOrEditTask = (event: any, taskToEditId?: number) => {
     event.preventDefault();
-    console.error("I need to be implemented");
+    
+    
   };
 
   const editTask = (taskId: number) => {
@@ -26,23 +29,30 @@ const App = () => {
   };
 
   const deleteTask = (taskId: number) => {
-    console.error("I need to be implemented");
+    const copyTask = tasks.filter((task) => task.id !== taskId);
+    setTasks(copyTask);
+    // copyTask.splice(taskId, 1);
+    // console.log(copyTask)
+    // setTasks(copyTask);
+    // console.log(taskId)
+    // delete tasks[taskId]
+    
   };
 
   return (
     <div className="main">
       <Header title={title} />
-      <TasksList tasks={tasks}/>
+      <TasksList deleteTask={deleteTask} tasks={tasks}/>
       <button
         className="add-task-btn"
-        onClick={() => console.log("this button should open the modal")}
+        onClick={() => setShowModal(true)}
       >
         +
       </button>
       <TaskFormModal
-        show={false}
+        show={showModal}
         handleClose={() =>
-          console.log("pass me a method that will close the modal")
+          setShowModal(false)
         }
         addOrEditTask={addOrEditTask}
         initialValues={

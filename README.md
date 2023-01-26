@@ -126,7 +126,7 @@ In this step, we want to add a new task to the list. The flow is :
 
 To do that :
 - Find what function is passed to the modal as prop to create a new task
-- Implement the method logic 
+- Implement the method logic
 - Make sure the id of the newly created task equals the greater id of the tasks list + 1
 
 Hint: only the first argument of the function should be used at this step. It is a Javascript event from which you can retrieve values by using `new FormData(event.target)`.

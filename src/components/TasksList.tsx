@@ -5,14 +5,15 @@ import "./TasksList.css";
 
 type TasksListProps = {
     tasks: TaskType[];
+    deleteTask: (taskId: number) => void;
 }
 
-export const TasksList = ({tasks}: TasksListProps) => {
+export const TasksList = ({tasks, deleteTask}: TasksListProps) => {
     
     return (
         <div className=".list-container">
             {tasks.map((obj: TaskType) => (
-                <Task task={obj}/>
+                <Task task={obj} key={obj.id} deleteTask={deleteTask}/>
               ))}
         </div>
     );
