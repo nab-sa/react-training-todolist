@@ -38,7 +38,7 @@ export const TaskFormModal = ({
         </button>
         <h3>Nouvelle tâche</h3>
         <form
-          onSubmit={(e) => addOrEditTask(e, initialValues?.id)}
+          onSubmit={addOrEditTask}
           className="task-form"
         >
           <label>
@@ -49,6 +49,7 @@ export const TaskFormModal = ({
               name="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              
             />
           </label>
           <label>
@@ -62,7 +63,7 @@ export const TaskFormModal = ({
             />
           </label>
           <div className="form-actions">
-            <button type="submit" onClick={(e) => addOrEditTask(e.target)}>Enregistrer</button>
+            <button type="submit">Enregistrer</button>
             <button onClick={() => handleClose()}>
               Annuler
             </button>

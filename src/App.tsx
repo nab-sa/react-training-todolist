@@ -20,6 +20,49 @@ const App = () => {
 
   const addOrEditTask = (event: any, taskToEditId?: number) => {
     event.preventDefault();
+
+    // FormData(form)
+
+    // const form = event.target
+    let formData = new FormData(event.target);
+    let newTask = Object.fromEntries(formData);
+    // console.log(typeof formData.get('title'))
+    // console.log(formData)
+    // for (let val in newTask) {
+      
+    //     const newTask = {
+    //       id: tasks.length + 1,
+    //       title: val,
+    //       description: val,
+    //       done: false
+    //     }
+    //     tasks.push(newTask)
+    //     console.log(newTask)
+    //     console.log(tasks)
+    //  }
+    const taskPlusId = {
+      id: tasks[tasks.length - 1].id + 1,
+      title: String(newTask.title),
+      description: String(newTask.description),
+      done: false
+    }
+
+    tasks.push(taskPlusId);
+    setShowModal(false);
+    console.log(tasks[0]);
+
+
+    
+    // console.log(formData.get(title))
+    
+    
+    // tasks.push(newTask)
+    
+    // {taskToEditId: tasks[tasks.length + 1]}
+    
+    
+
+    
     
     
   };
