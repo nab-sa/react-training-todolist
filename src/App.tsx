@@ -5,6 +5,7 @@ import { TaskFormModal } from "./components/TaskFormModal";
 import { data } from "./data/tasks";
 import { Header } from "./components/Header";
 import { TasksList } from "./components/TasksList"
+import { TaskType } from "./models/Task";
 
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
   const taskToEdit: any = null;
   const [showModal, setShowModal] = useState(false)
   const [tasks, setTasks] = useState(data);
+  const  [taskEdit, setTaskEdit] = useState<TaskType | null >(null);
 
   const updateTaskState = (taskId: number) => {
     console.error("I need to be implemented");
@@ -21,54 +23,39 @@ const App = () => {
   const addOrEditTask = (event: any, taskToEditId?: number) => {
     event.preventDefault();
 
-    // FormData(form)
-
-    // const form = event.target
-    let formData = new FormData(event.target);
-    let newTask = Object.fromEntries(formData);
-    // console.log(typeof formData.get('title'))
-    // console.log(formData)
-    // for (let val in newTask) {
-      
-    //     const newTask = {
-    //       id: tasks.length + 1,
-    //       title: val,
-    //       description: val,
-    //       done: false
-    //     }
-    //     tasks.push(newTask)
-    //     console.log(newTask)
-    //     console.log(tasks)
-    //  }
-    const taskPlusId = {
-      id: tasks[tasks.length - 1].id + 1,
-      title: String(newTask.title),
-      description: String(newTask.description),
-      done: false
+    if(taskToEditId != null) {
+      const editedTask = tasks.find((task) => task.id === taskToEditId);
+      if (editedTask) {
+        editedTask.title = event.target.title.value;
+        editedTask.description = event.target.description.value;
+      }
+      setTaskEdit(null);
+    } else {
+      const formData = new FormData(event.target)
+      const newTask = Object.fromEntries(formData)
+      const taskPlusId = {
+        id: tasks[tasks.length - 1].id +1,
+        title: String(newTask.title)!,
+        description: String(newTask.description),
+        done: false
+      } 
+      tasks.push(taskPlusId)
+      setTaskEdit(null);
+      console.log(taskPlusId)
+      console.log(tasks)
     }
 
-    tasks.push(taskPlusId);
-    setShowModal(false);
-    console.log(tasks[0]);
-
-
-    
-    // console.log(formData.get(title))
-    
-    
-    // tasks.push(newTask)
-    
-    // {taskToEditId: tasks[tasks.length + 1]}
-    
-    
-
-    
-    
-    
+    setShowModal(false)
   };
 
   const editTask = (taskId: number) => {
-    console.error("I need to be implemented");
+    const taskEdit = tasks.find((task) => task.id === taskId)
+    if (taskEdit) {
+      setTaskEdit(taskEdit)
+    }
+    
+    setShowModal(true)
+    console.log(taskEdit)
   };
 
   const deleteTask = (taskId: number) => {
@@ -85,7 +72,7 @@ const App = () => {
   return (
     <div className="main">
       <Header title={title} />
-      <TasksList deleteTask={deleteTask} tasks={tasks}/>
+      <TasksList deleteTask={deleteTask} tasks={tasks} editTask={editTask}/>
       <button
         className="add-task-btn"
         onClick={() => setShowModal(true)}
@@ -99,11 +86,11 @@ const App = () => {
         }
         addOrEditTask={addOrEditTask}
         initialValues={
-          taskToEdit != null
+          taskEdit != null
             ? {
-                id: taskToEdit.id,
-                title: taskToEdit.title,
-                description: taskToEdit.description,
+                id: taskEdit.id,
+                title: taskEdit.title,
+                description: taskEdit.description,
               }
             : undefined
         }

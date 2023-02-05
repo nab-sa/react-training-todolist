@@ -19,7 +19,11 @@ export const TaskFormModal = ({
   const [description, setDescription] = useState(
     initialValues?.description ?? undefined
     );
-    
+    useEffect(() => {
+      setTitle(initialValues?.title)
+      setDescription(initialValues?.description)
+    }, [initialValues])
+
     
     
 
@@ -38,7 +42,7 @@ export const TaskFormModal = ({
         </button>
         <h3>Nouvelle tâche</h3>
         <form
-          onSubmit={addOrEditTask}
+          onSubmit={(e) => addOrEditTask(e, initialValues?.id)}
           className="task-form"
         >
           <label>
