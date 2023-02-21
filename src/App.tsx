@@ -17,8 +17,14 @@ const App = () => {
   const  [taskEdit, setTaskEdit] = useState<TaskType | null >(null);
 
   const updateTaskState = (taskId: number) => {
-    console.error("I need to be implemented");
-  };
+    const updatedTasks: TaskType[] = tasks.map((task) => {
+      if (task.id === taskId) {
+        task.done? task.done = false : task.done = true;
+      }
+      return task;
+    })
+    setTasks(updatedTasks)
+  }
 
   const addOrEditTask = (event: any, taskToEditId?: number) => {
     event.preventDefault();
@@ -72,7 +78,7 @@ const App = () => {
   return (
     <div className="main">
       <Header title={title} />
-      <TasksList deleteTask={deleteTask} tasks={tasks} editTask={editTask}/>
+      <TasksList deleteTask={deleteTask} tasks={tasks} editTask={editTask} updateTaskState={updateTaskState}/>
       <button
         className="add-task-btn"
         onClick={() => setShowModal(true)}

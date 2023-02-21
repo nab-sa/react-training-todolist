@@ -10,16 +10,17 @@ type TaskProps = {
   task: TaskType;
   deleteTask: (taskId: number) => void;
   editTask: (taskId: number) => void
+  updateTaskState: (taskId: number) => void
   
 };
 
-export const Task = ({task, deleteTask, editTask}: TaskProps) => {
+export const Task = ({task, deleteTask, editTask, updateTaskState}: TaskProps) => {
 
   return (
     <div className="task-container">
       <div className="task-content">
         <label className="container">
-          <input type="checkbox" checked={false} onChange={() => console.log('')}/>
+          <input type="checkbox" checked={task.done} onChange={() => updateTaskState(task.id)}/>
           <span className="checkmark"></span>
         </label>
         <p>{task.title}</p>
